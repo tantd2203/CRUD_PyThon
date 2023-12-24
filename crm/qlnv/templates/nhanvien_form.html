@@ -1,0 +1,13 @@
+    
+{% block content %}
+  <h2>{% if nhanvien.id %}Edit NhanVien{% else %}New NhanVien{% endif %}</h2>
+
+  <form method="post" class="nhanvien-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Save</button>
+  </form>
+
+  <p><a href="{% url 'nhanvien_list' %}">Back to NhanVien List</a></p>
+{% endblock %}

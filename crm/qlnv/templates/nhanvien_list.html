@@ -1,0 +1,96 @@
+<!-- templates/nhanvien_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhân Viên List</title>
+    <style>
+        /* Add your CSS styling here */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .input-form {
+            margin-bottom: 20px;
+        }
+
+        .input-form input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Nhân Viên List</h2>
+
+    <div class="input-form">
+    
+        <form method="POST"   action="{% url 'create' %}">
+            {% csrf_token %}
+            <label for="maNV">Mã Nhân Viên:</label>
+            <input type="text" name="maNV" id="maNV" required>
+            <br>    <br>
+            
+            <label for="tenNV">Tên Nhân Viên:</label>
+            <input type="text" name="tenNV" id="tenNV" required>
+            <br>    <br>
+            <label for="luongCD">Lương Cơ Bản:</label>
+            <input type="text" name="luongCB" id="luongCB" required>
+
+            <inpu type="hidden" name="luongHT" id="luongHT" >
+            <br>    <br>
+
+            <label for="loaiNhanVien">Loại Nhân Viên:</label>
+            <select name="loaiNhanVien" id="loaiNhanVien" required>
+                {% for lnv in dsLoaiNV %}
+                    <option value="{{lnv.id}}">{{lnv.name }}</option>
+                {% endfor %}
+            </select>
+            <br>    <br>
+            <button type="submit">Thêm Nhân Viên</button>
+        </form>
+    </div>
+
+    <!-- Existing Employee Table -->
+    {% comment %} <a href="{% url 'create-nv' %}">Thêm Nhân Viên</a> {% endcomment %}
+    <table>
+        <thead>
+            <tr>
+                <th>Mã Nhân Viên</th>
+                <th>Tên Nhân Viên</th>
+                <th>Lương Cơ Bản</th>
+                <th>Lương Hiện Tại</th>
+                <th>Loại Nhân Viên</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nhanvien in dsNhanVien %}
+                <tr>
+                    <td>{{ nhanvien.maNV }}</td>
+                    <td>{{ nhanvien.tenNV }}</td>
+                    <td>{{ nhanvien.luongCB }}</td>
+                    <td>{{ nhanvien.luongHT }}</td>
+                    <td>{{ nhanvien.loaiNhanVien.name }}</td>
+                    <td>
+                       <a href="{% url 'edit' pk=nhanvien.pk %}">Edit</a>
+                        <a href="{% url 'delete' pk=nhanvien.pk %}">Delete</a> 
+                    </td>
+                </tr>
+      
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,17 @@
+
+{% block content %}
+  <h2>NhanVien Detail</h2>
+  <h3>{{ nhanvien.tenNV }}</h3>
+  <p>MaNV: {{ nhanvien.maNV }}</p>
+  <p>Luong CD: {{ nhanvien.luongCB }}</p>
+  <p>Luong HT: {{ nhanvien.luongHT }}</p>
+
+  <h4>Edit NhanVien</h4>
+  <form method="post" action="{% url 'edit' pk=nhanvien.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <p><a href="{% url 'nhanvien_list' %}">Back to NhanVien List</a></p>
+{% endblock %}
