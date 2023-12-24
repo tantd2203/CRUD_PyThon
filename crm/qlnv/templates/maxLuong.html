@@ -1,0 +1,78 @@
+<!-- templates/nhanvien_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhân Viên List</title>
+    <style>
+        /* Add your CSS styling here */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .input-form {
+            margin-bottom: 20px;
+        }
+
+        .input-form input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Nhân Viên List</h2>
+
+    <div class="input-form">
+    
+        <form method="POST"   action="{% url 'timkiemNV' %}">
+            {% csrf_token %}
+            <label for="maNV">Mã Nhân Viên:</label>
+            <input type="text" name="maNV" id="maNV">
+            <br>    <br>
+            <button type="submit">Tìm theo Mã NVNhân Viên</button>
+            <button type="submit"> <a href="{% url 'timLuongHT' %}">Tìm lương cao nhất</a> </button>
+            <button type="submit"> <a href="{% url 'maxluongHTsanxuat' %}" > Tìm lương Sản xuất cao nhất </a>   </button>
+        
+        </form>
+     
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Mã Nhân Viên</th>
+                <th>Tên Nhân Viên</th>
+                <th>Lương Cơ Bản</th>
+                <th>Lương Hiện Tại</th>
+                <th>Loại Nhân Viên</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+                <tr>
+                    <td>{{ maxluongHT.maNV }}</td>
+                    <td>{{ maxluongHT.tenNV }}</td>
+                    <td>{{ maxluongHT.luongCB }}</td>
+                    <td>{{ maxluongHT.luongHT }}</td>
+                    <td>{{ maxluongHT.loaiNhanVien.name }}</td>
+                </tr>
+      
+       
+    
+        </tbody>
+    </table>
+</body>
+</html>

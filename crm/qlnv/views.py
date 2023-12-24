@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import LoaiNhanVien, NhanVien
 from .forms import NhanVienForm  
 from decimal import Decimal
+
+
+
 def nhanvien_list(request):
     dsNhanVien = NhanVien.objects.all()
     dsLoaiNV = LoaiNhanVien.objects.all()
@@ -44,3 +47,20 @@ def nhanvien_delete(request, pk):
     nhanvien = get_object_or_404(NhanVien, pk=pk)
     nhanvien.delete()
     return redirect('nhanvien_list')
+
+def timNV(request):
+    manv = request.POST.get('maNV')
+    nhanvien = NhanVien.objects.filter(maNV=manv)
+    
+    return render(request, 'timNhanVien.html', {'nhanvien': nhanvien})
+
+def timLuongHT(request):
+    maxluongHT = NhanVien.objects.all().order_by('luongHT').last()
+    return render(request, 'maxLuong.html', {'maxluongHT': maxluongHT})
+
+
+def search_nhanvien_max_luongHT_sanxuat(request):
+    employee_type = LoaiNhanVien.objects.get(name='NVSP') 
+    employees = NhanVien.objects.filter(loaiNhanVien=employee_type)
+   
+    return render(request, 'maxluongHTsanxuat.html')
