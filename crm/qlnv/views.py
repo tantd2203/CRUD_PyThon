@@ -60,7 +60,5 @@ def timLuongHT(request):
 
 
 def search_nhanvien_max_luongHT_sanxuat(request):
-    employee_type = LoaiNhanVien.objects.get(name='NVSP') 
-    employees = NhanVien.objects.filter(loaiNhanVien=employee_type)
-   
-    return render(request, 'maxluongHTsanxuat.html')
+    nhanSX = NhanVien.objects.all().filter(loaiNhanVien_id ='2').order_by('luongHT').last()
+    return render(request, 'maxluongHTsanxuat.html',{'nvsx': nhanSX})
